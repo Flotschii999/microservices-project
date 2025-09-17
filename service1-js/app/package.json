@@ -1,0 +1,8 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "main": "service1.js",
+  "scripts": {
+    "start": "node service1.js"
+  }
+}

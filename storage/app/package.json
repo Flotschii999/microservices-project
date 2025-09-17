@@ -1,0 +1,8 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "main": "storage.js",
+  "scripts": {
+    "start": "node storage.js"
+  }
+}

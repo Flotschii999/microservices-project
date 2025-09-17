@@ -1,16 +1,32 @@
 version: "3.9"
 services:
-  # service1:
-  #   build: ./service1-js
-  #   ports:
-  #    - "8000:5000"  
+  service1:
+    build: ./service1-js
+    ports: 
+       - "8199:5000"
+    networks: 
+      - internalNetwork
+    volumes:
+      - vstorage:/vstorage
 
-  # service2:
-  #   build: ./service2-kotlin
-  #   ports:
-  #     - "8000:5001"
+  service2:
+    build: ./service2-python
+    networks: 
+      - internalNetwork
+    volumes:
+      - vstorage:/vstorage
 
-  service3:
-    build: ./service3-python
-    ports:
-      - "8000:5002"  
+  storage:
+    build: ./storage
+    networks:
+      - internalNetwork
+    volumes:
+      - vstorage:/vstorage
+
+networks:
+  internalNetwork:
+    # internal! isolates the network from the outside world
+    driver: bridge
+
+volumes:
+  vstorage:
