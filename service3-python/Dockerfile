@@ -2,6 +2,7 @@ FROM python:3.10-alpine
 
 WORKDIR /app
 
-COPY hello.py .
+# copy everything form the host into the container
+COPY . .
 
-CMD ["python", "hello.py"]
+CMD ["python", "main.py"]
