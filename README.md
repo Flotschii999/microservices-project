@@ -1,2 +1,2 @@
 # microservices-project
-microservices-project DevOps Tampere University
+microservices-project DevOps University Tampere

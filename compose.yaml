@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  service1:
+    build: ./service1-js
+    ports:
+      - "8000:5000"  
+
+  service2:
+    build: ./service2-kotlin
+    ports:
+      - "8000:5001"
+
+  service3:
+    build: ./service3-python
+    ports:
+      - "8000:5002"  
