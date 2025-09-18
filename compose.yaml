@@ -21,7 +21,7 @@ services:
     networks:
       - internalNetwork
     volumes:
-      - mstorage:/storage
+      - storage:/storage
 
 networks:
   internalNetwork:
@@ -29,4 +29,4 @@ networks:
     driver: bridge
 
 volumes:
-  mstorage:
+  storage:
