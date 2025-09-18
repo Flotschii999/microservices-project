@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "service-1",
   "version": "1.0.0",
   "main": "service1.js",
   "scripts": {
