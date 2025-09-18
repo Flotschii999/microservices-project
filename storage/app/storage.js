@@ -1,43 +1,72 @@
+//-------------------------------------------------------------------------------
+//- Requirements
+//-------------------------------------------------------------------------------
 // Help on: https://nodejs.org/api/http.html
 const http = require('http');
 const fs = require('fs');
-const path = require('path');
 
+//-------------------------------------------------------------------------------
+//- Properties
+//-------------------------------------------------------------------------------
 // Options for GET and POST requests
 const restOptions = {
-  hostname: 'storage',   // Docker Compose service name
-  port: 8080,
-  path: '/log',
+  hostname: 'storage', // Docker Compose service name
+  port: 5002,
+  path: '/',
 };
 
 // Log file path
 const LOG_FILE = '/vstorage/log.txt';
 
+//-------------------------------------------------------------------------------
+//- Main
+//-------------------------------------------------------------------------------
 // Handle GET and POST requests
 http.createServer(function (request, response) {
-  body = '';
+  let body = '';
   statusCode = 400;
-
+  
   switch(request.method) {
     case "GET":
-      if (request.url === restOptions.path) {
-        if (!fs.existsSync(LOG_FILE)){
-          body = fs.readFileSync(LOG_FILE, 'utf8');
-          statusCode = 201;
-        }
-      }
+      if (request.url === restOptions.path) 
+        statusCode = readLog(body) ? 200 : 400;
       break;
     case "POST":
       // build body for POST requests (we have to wait for the full body)
-      let body = '';
-      if (request.url === restOptionspath) {
+      if (request.url === restOptions.path) {
         request.on('data', chunk => { body += chunk; });
-        request.on('end', () => {fs.appendFileSync(LOG_FILE, body + '\n'); statusCode = 200;});
-      } else response.writeHead(400, {'Content-Type': 'text/html'});
+        request.on('end', () => {
+          statusCode = logMessage(body) ? 200 : 400;
+          endResponse(response, statusCode, body);
+        });
+        return; // we will end the response in the 'end' event!
+      }
       break;
     default:
       // Nothing to do!
   }
-  response.writeHead(statusCode, {'Content-Type': 'text/html'});
-  response.end(body);
+
+  endResponse(response, statusCode, body);
 }).listen(restOptions.port);
+
+//-------------------------------------------------------------------------------
+//- Helpers
+//-------------------------------------------------------------------------------
+function readLog(message) {
+  if (fs.existsSync(LOG_FILE)){
+    message = fs.readFileSync(LOG_FILE, 'utf8');
+    return true;
+  }
+  return false  
+}
+
+function logMessage(message) {
+  const logEntry = `${new Date().toLocaleString('sv-SE', { timeZone: 'Europe/Helsinki', hour12: false })} - ${message}\n`;
+  fs.appendFileSync(LOG_FILE, logEntry);
+  return true; // success
+}
+
+function endResponse(response, statusCode, message) {
+  response.writeHead(statusCode, {'Content-Type': 'text/html'});
+  response.end(message); 
+}
