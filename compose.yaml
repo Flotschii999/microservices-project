@@ -2,6 +2,9 @@ version: "3.9"
 services:
   service1:
     build: ./service1-js
+    depends_on: # makes sure service1 starts after service2 and storage
+      - service2
+      - storage
     ports: 
        - "8199:5000"
     networks: 
@@ -11,6 +14,8 @@ services:
 
   service2:
     build: ./service2-python
+    depends_on: # makes sure service2 starts after storage
+      - storage
     networks: 
       - internalNetwork
     volumes:
