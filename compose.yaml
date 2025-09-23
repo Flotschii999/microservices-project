@@ -10,6 +10,7 @@ services:
     networks: 
       - internalNetwork
     volumes:
+      # because we already have a local file vstorage on the host machine it will be used as a file ;) hackmac
       - ./vstorage:/vstorage:w  # shared volume with service2 - local folder on host machine - write
 
   service2:
@@ -19,6 +20,7 @@ services:
     networks: 
       - internalNetwork
     volumes:
+    # because we already have a local file vstorage on the host machine it will be used as a file ;) hackmac
       - ./vstorage:/vstorage:w # shared volume with service1 - local folder on host machine - write
 
   storage:
