@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   service1:
-    build: ./service1-js
+    build: ./service1
     depends_on: # makes sure service1 starts after service2 and storage
       - service2
       - storage
@@ -14,7 +14,7 @@ services:
       - ./vstorage:/vstorage:w  # shared volume with service2 - local folder on host machine - write
 
   service2:
-    build: ./service2-python
+    build: ./service2
     depends_on: # makes sure service2 starts after storage
       - storage
     networks: 
