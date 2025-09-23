@@ -92,13 +92,13 @@ async function handleRequests(request, response) {
       handleGetRequests(request, response);
       break;
     case 'POST':
-      // build body for POST requests (we have to wait for the full body)
       let body = '';
+      // build body for POST requests (we have to wait for the full body)
       request.on('data', chunk => { body += chunk; });
       request.on('end', () => {handlePostRequests(request, response, body)});
       break;
     default:
-      endResponse(response, 200, 'Not found');
+      endResponse(response, 404, `Request Method ${request.method} not implemented`); // for all other requests we just return OK
   }
 }
 
@@ -123,7 +123,7 @@ function handleGetRequests(request, response){
       handled = true;
       break;
     default:
-      endResponse(response, 404, 'Not found'); 
+      endResponse(response, 404, `Endpoint ${request.url} not found`); 
   }
   return handled;
 }
@@ -155,7 +155,7 @@ function handlePostRequests(request, response, body){
       endResponse(response, 404, 'feature not implemented - pls contact me ;)'); 
       break;
     default:
-      endResponse(response, 404, 'Endpoint ${request.url} not found'); 
+      endResponse(response, 404, `Endpoint ${request.url} not found`); 
   }
   return handled;
 }
