@@ -10,7 +10,7 @@ services:
     networks: 
       - internalNetwork
     volumes:
-      - ./vstorage:/vstorage
+      - ./vstorage:/vstorage # shared volume with service2 - local folder on host machine
 
   service2:
     build: ./service2-python
@@ -19,7 +19,7 @@ services:
     networks: 
       - internalNetwork
     volumes:
-      - ./vstorage:/vstorage
+      - ./vstorage:/vstorage # shared volume with service1 - local folder on host machine
 
   storage:
     build: ./storage

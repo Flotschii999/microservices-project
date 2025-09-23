@@ -4,12 +4,13 @@
 const http = require('http');
 const fs = require('fs');
 const { execSync } = require('child_process'); // to run shell commands
+// const os = require('os'); instead of execSync with os.freeSpace -> but delivers the wrong output.
 
 //-------------------------------------------------------------------------------
 //- Properties
 //-------------------------------------------------------------------------------
 // Options for GET and POST requests
-const settingsServer = {
+const settings = {
   port: 5000,
   status : {
     path: '/status',
@@ -54,26 +55,22 @@ const LOG_FILE = '/vstorage/log.txt';
 //-------------------------------------------------------------------------------
 http.createServer((request, response) => {
   try {
-    // because it is public callable!
+    // because it is public callable! (used for my test script!)
     response.setHeader('Access-Control-Allow-Origin', '*');
     
     // Handle the request
-    handleRequest(request, response);
+    handleRequests(request, response);
   } catch (error) {
     console.error('Error handling request:', error);
     endResponse(response, 500, `Internal Server Error: ${error.message}`);
   }
-}).listen(settingsServer.port);
+}).listen(settings.port);
 
 //-------------------------------------------------------------------------------
 //- Main
 //-------------------------------------------------------------------------------
 // Handler function for incoming requests
-function handleRequest(request, response) {
-  // Init
-  let body = '';
-  statusCode = 200;
-
+async function handleRequests(request, response) {
   // analyses its state 
   /* Info:
    * .toISOString() = ISO 8601 format
@@ -92,49 +89,83 @@ function handleRequest(request, response) {
   // handle "proxy" requests
   switch(request.method) {
     case 'GET':
-      if (request.url === settingsServer.status.path) {
-        sendRequest(settingsService2, '', (res, data) => {endResponse(response, res.statusCode, data)});
-        return; // we will end the response in the sendRequest event!
-      } else if (request.url === settingsServer.log.path) {
-        sendRequest(settingsStorageRead, '', (res, data) => {endResponse(response, res.statusCode, data)});
-        return; // we will end the response in the sendRequest event!
-      } else {statusCode = 404; body = 'Not found';}
+      handleGetRequests(request, response);
       break;
     case 'POST':
       // build body for POST requests (we have to wait for the full body)
-      if (request.url === settingsServer.log.path) {
-        body = 'feature not implemented - pls contact me ;)';
-        /* POST /log Forward to storage
-         *
-         * Would work as well 
-         * Has been removed because i missunderstood the exercise ;)
-         * I'm not sure if i lose points when i this feature is implemented ;)
-         * Better safe than sorry ;)
-         * 
-        request.on('data', chunk => { body += chunk; });
-        request.on('end', () => {sendRequest(settingsStorageWrite, body, (res, data) => {endResponse(response, res.statusCode, data)})});
-        return; // we will end the response in the sendRequest event!
-         */
-      } else {statusCode = 404; body = 'Not found';}
+      let body = '';
+      request.on('data', chunk => { body += chunk; });
+      request.on('end', () => {handlePostRequests(request, response, body)});
       break;
-
     default:
-      body = 'Not found';
+      endResponse(response, 200, 'Not found');
   }
-
-  // respond
-  endResponse(response, statusCode, body);
 }
 
 //-------------------------------------------------------------------------------
 //- Helpers
 //-------------------------------------------------------------------------------
+// function to handle GET requests
+// returns true if handled, otherwise false
+function handleGetRequests(request, response){
+  // Initialize
+  var handled = false;
+  const callback = (res, data) => {endResponse(response, res.statusCode, data)}
+
+  // handle the request based on the URL
+  switch(request.url) {
+    case settings.status.path:
+      sendRequest(settingsService2, '', callback);
+      handled = true;
+      break;
+    case settings.log.path:
+      sendRequest(settingsStorageRead, '', callback);
+      handled = true;
+      break;
+    default:
+      endResponse(response, 404, 'Not found'); 
+  }
+  return handled;
+}
+
+// function to handle POST requests
+// returns true if handled, otherwise false
+function handlePostRequests(request, response, body){
+  // Initialize
+  var handled = false;
+  const callback = (res, data) => {endResponse(response, res.statusCode, data)}
+
+  // handle the request based on the URL
+  switch(request.url) {
+    case settings.log.path:
+      handled = false;
+      /* POST /log Forward to storage
+        *
+        * Would work as well 
+        * Has been removed because i missunderstood the exercise ;)
+        * I'm not sure if i lose points when i this feature is implemented ;)
+        * Better safe than sorry ;)
+        
+        handled = true;
+        sendRequest(settingsStorageWrite, body, callback);
+        return; // we will end the response in the sendRequest event!
+      */
+
+      //sendRequest(settingsStorageWrite, body, callback);
+      endResponse(response, 404, 'feature not implemented - pls contact me ;)'); 
+      break;
+    default:
+      endResponse(response, 404, 'Endpoint ${request.url} not found'); 
+  }
+  return handled;
+}
+
 // function to send a request and handle the response with a callback
-function sendRequest(settings, message = '', end = (data) => {}) {
+function sendRequest(settings, message = '', callback = (data) => {}) {
   const req = http.request(settings, (response) => {
     let data = '';
     response.on('data', chunk => { data += chunk; });
-    response.on('end', () => {end(response, data)});
+    response.on('end', () => {callback(response, data)});
   })
 
   req.write(message);
@@ -142,9 +173,9 @@ function sendRequest(settings, message = '', end = (data) => {}) {
 }
 
 // common function to end a response
-function endResponse(response, statusCode, message) {
-  response.writeHead(statusCode, {'Content-Type': 'text/html'});
-  response.end(message); 
+function endResponse(response, statusCode, message, contentType='text/plain') {
+  response.writeHead(statusCode, {'Content-Type': contentType});
+  response.end(message);
 }
 
 // function to log a message to the log file
