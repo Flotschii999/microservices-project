@@ -16,7 +16,7 @@ settingsStorage = {
 }
 
 # Log file path
-LOG_FILE = '/vstorage/log.txt';
+LOG_FILE = '/vstorage'
 
 # Record the start time of the service - used to calculate uptime
 startTime = datetime.now(timezone.utc)

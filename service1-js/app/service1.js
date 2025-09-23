@@ -47,7 +47,7 @@ const settingsStorageRead = {
 };
 
 // Log file path
-const LOG_FILE = '/vstorage/log.txt'; // use shared volume
+const LOG_FILE = '/vstorage'; // use shared volume
 
 //-------------------------------------------------------------------------------
 //- Configuration (Server setup)
