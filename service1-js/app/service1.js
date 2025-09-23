@@ -89,7 +89,7 @@ async function handleRequests(request, response) {
   // handle "proxy" requests
   switch(request.method) {
     case 'GET':
-      handleGetRequests(request, response);
+      handleGetRequests(request, response, record); // add the record as additional data to the status response
       break;
     case 'POST':
       let body = '';
@@ -107,19 +107,18 @@ async function handleRequests(request, response) {
 //-------------------------------------------------------------------------------
 // function to handle GET requests
 // returns true if handled, otherwise false
-function handleGetRequests(request, response){
+function handleGetRequests(request, response, additionalData = '') {
   // Initialize
   var handled = false;
-  const callback = (res, data) => {endResponse(response, res.statusCode, data)}
 
   // handle the request based on the URL
   switch(request.url) {
     case settings.status.path:
-      sendRequest(settingsService2, '', callback);
+      sendRequest(settingsService2, '', (res, data) => {endResponse(response, res.statusCode, `${additionalData}\n${data}`)});
       handled = true;
       break;
     case settings.log.path:
-      sendRequest(settingsStorageRead, '', callback);
+      sendRequest(settingsStorageRead, '', (res, data) => {endResponse(response, res.statusCode, data)});
       handled = true;
       break;
     default:
