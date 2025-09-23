@@ -10,7 +10,7 @@ services:
     networks: 
       - internalNetwork
     volumes:
-      - ./vstorage:/vstorage # shared volume with service2 - local folder on host machine
+      - ./vstorage:/vstorage:rw  # shared volume with service2 - local folder on host machine - read/write
 
   service2:
     build: ./service2-python
@@ -19,14 +19,14 @@ services:
     networks: 
       - internalNetwork
     volumes:
-      - ./vstorage:/vstorage # shared volume with service1 - local folder on host machine
+      - ./vstorage:/vstorage:rw # shared volume with service1 - local folder on host machine - read/write
 
   storage:
     build: ./storage
     networks:
       - internalNetwork
     volumes:
-      - storage:/storage
+      - storage:/storage:rw # own volume - read/write
 
 networks:
   internalNetwork:
@@ -34,4 +34,4 @@ networks:
     driver: bridge
 
 volumes:
-  storage:
+  storage: # only for the storage service
