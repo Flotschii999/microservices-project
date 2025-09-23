@@ -8,6 +8,7 @@ services:
     ports: 
        - "8199:5000"
     networks: 
+      - hostNetwork
       - internalNetwork
     volumes:
       # because we already have a local file vstorage on the host machine it will be used as a file ;) hackmac
@@ -31,9 +32,13 @@ services:
       - storage:/storage:rw # own volume - read/write
 
 networks:
+  hostNetwork:
+    driver: bridge      # default! - Accessible from outside the Docker Container (e.g.: via localhost and port mapping)
   internalNetwork:
     # internal! isolates the network from the outside world
-    driver: bridge
+    driver: bridge      # default! - Bridge networks are commonly used when your application runs in a container that needs to communicate with other containers on the same host
+    internal: true      # other services inside the container can access it - but not from outside the container
+    attachable: false   # other containers can attach to this network
 
 volumes:
   storage: # only for the storage service
