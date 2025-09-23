@@ -20,7 +20,19 @@ It provides two records, one from each of the main services (`service1` and `ser
 
 `localhost:8199/log`
 
-It provides the log file entries generated and managed by the `storage` service.
+It provides the log file entries managed by the `storage` service.
+
+---
+
+The endpoints can be easily accessed using standard UNIX commands.
+
+```
+curl localhost:8199/status
+```
+
+```
+curl localhost:8199/log
+```
 
 ## Log Files
 
@@ -32,8 +44,52 @@ docker compose down --volume
 
 ---
 
-The second log file, `vstorage`, is mounted at the container’s base directory on the host machine. It can be accessed by running the following command from the container host directory:
+The second log file, `vstorage`, is mounted at the container’s base directory on the host machine. It can be accessed by running the following UNIX command from the container host directory:
 
 ```
 cat ./vstorage
+```
+
+## Run
+
+To test/run this docker container you can follow these UNIX commands:
+
+### Clone Git Repository
+
+```
+git clone -b exercise1 https://github.com/Flotschii999/microservices-project.git
+```
+
+### Enter Git Directory
+
+Before running the following commands, make sure to first navigate into the newly generated directory. Then wait for 10 seconds to allow the system to start up completely.
+
+```
+cd microservices-project
+```
+
+### Accessing the Endpoints
+
+```
+curl localhost:8199/status
+curl localhost:8199/log
+```
+
+### Remove the Docker Container
+
+#### Students Instructions for Cleaning Up
+
+To perform a complete cleanup, you can add the `--volumes` option to the command, which will also remove all volumes created by Docker Compose.
+
+```
+docker compose down --volumes
+
+```
+
+#### Alternative: Keeping Volumes 
+
+Removing containers while keeping volumes intact
+
+```
+docker-compose down
 ```
