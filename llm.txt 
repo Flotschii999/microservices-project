@@ -4,7 +4,6 @@ The tools i used for this project are
 - You.com (auto mode - Auto mode means that no specific model is used; it always selects the most suitable one)
 - DeepL
 
-
 -----------------------------------------------
 o Motivation/reason to use LLM
 
@@ -22,14 +21,11 @@ There are more than one reason.
 DeepL:
 - My English isn't the best. So I use this tool to improve my writing.
 
-
-
 -----------------------------------------------
 o How and why LLM helped
 
 Github Copilot: 
 - By the time I knew what I wanted to write, Copilot had already predicted my next move.
-
 
 You.com:
 - I asked a question and it generated an answer. After trying to understand it fully, I added additional comments where necessary and used it for my programme. 
@@ -39,8 +35,6 @@ You.com:
 DeepL:
 - I used DeepL, for example, for comments and the report.
 
-
-
 -----------------------------------------------
 o What kind of mistakes LLM did
 
@@ -48,22 +42,18 @@ Github Copilot:
 - I sometimes want to indent parts of the code. I don't know why, but the code completion suggests inserting code there. By pressing tab, I accept these changes. This is really annoying. 
 - It makes code suggestions that are not what I'm looking for, but that's pretty obvious and not a cause for concern.
 
-
 You.com:
 - It answers something i didn't ask. 
 - It thinks way too complicatedly. For example, if I search for an easy solution because I've already implemented it, but it's not beautiful enough for me. Sometimes, I get a solution that is even more complicated.
 
-
 DeepL:
 - It sometimes uses words that I don't know. Do I have to change them^^ :D
-
 
 -----------------------------------------------
 o What were things that LLM was not able to provide
 
 Github Copilot: 
 - Don't use code completion.
-
 
 You.com:
 - Since I usually search the web simultaneously, I'll see if I can find something there. If that leads to a dead end, I try another approach to find a solution.
