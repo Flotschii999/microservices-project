@@ -89,7 +89,7 @@ docker compose down --volumes
 
 ### Alternative: Keeping Volumes
 
-Removing containers while keeping volumes intact
+Removing containers while keeping volumes intact.
 
 ```
 docker-compose down

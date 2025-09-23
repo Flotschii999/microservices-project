@@ -1,0 +1,72 @@
+o The used LLM tool
+The tools i used for this project are 
+- Github Copilot
+- You.com (auto mode - Auto mode means that no specific model is used; it always selects the most suitable one)
+- DeepL
+
+
+-----------------------------------------------
+o Motivation/reason to use LLM
+
+Github Copilot: 
+I use Visual Studio Code as my development environment. This has GitHub Copilot implemented, which assists with code completion. I'm using this feature because it is enabled.
+
+You.com:
+There are more than one reason. 
+- Sometimes, you come to a task that you have done hundreds of times before in another programming language. In my case, I don't have much experience with JavaScript and even less with Python. However, the choice of these programming languages was easy because they are user-friendly. Due to my limited experience with these languages, I often asked AI how I could write certain parts in one of them.
+- However, it's also useful for simple tasks such as file handling. You can simply ask AI how to handle files in JavaScript and inside a Docker container. Than you can search for the task in the web in parallel. Two minutes later, you can decide for yourself whether both methods provide the same solution and whether this is really the right approach for you.
+- Using AI is often faster than searching for specific things in the web.
+- For example, when you have the Docker documentation. This one is pretty good, but sometimes you have questions or don't understand certain things. It's really straightforward to get a suitable answer to your question by asking AI. And because AI can address your question completely, the answers are really good.
+- for code reviews.
+
+DeepL:
+- My English isn't the best. So I use this tool to improve my writing.
+
+
+
+-----------------------------------------------
+o How and why LLM helped
+
+Github Copilot: 
+- By the time I knew what I wanted to write, Copilot had already predicted my next move.
+
+
+You.com:
+- I asked a question and it generated an answer. After trying to understand it fully, I added additional comments where necessary and used it for my programme. 
+- If I needed something, I would Google it. Sometimes I find solutions that I cannot understand by myself. I asked the AI tool to provide a comprehensive overview of what was happening, and I usually received a really good answer.
+- I requested a code review of certain sections of the code.
+
+DeepL:
+- I used DeepL, for example, for comments and the report.
+
+
+
+-----------------------------------------------
+o What kind of mistakes LLM did
+
+Github Copilot: 
+- I sometimes want to indent parts of the code. I don't know why, but the code completion suggests inserting code there. By pressing tab, I accept these changes. This is really annoying. 
+- It makes code suggestions that are not what I'm looking for, but that's pretty obvious and not a cause for concern.
+
+
+You.com:
+- It answers something i didn't ask. 
+- It thinks way too complicatedly. For example, if I search for an easy solution because I've already implemented it, but it's not beautiful enough for me. Sometimes, I get a solution that is even more complicated.
+
+
+DeepL:
+- It sometimes uses words that I don't know. Do I have to change them^^ :D
+
+
+-----------------------------------------------
+o What were things that LLM was not able to provide
+
+Github Copilot: 
+- Don't use code completion.
+
+
+You.com:
+- Since I usually search the web simultaneously, I'll see if I can find something there. If that leads to a dead end, I try another approach to find a solution.
+
+DeepL
+- Just try writing it the way I would. :)
