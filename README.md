@@ -72,21 +72,22 @@ cd microservices-project
 
 ```
 curl localhost:8199/status
+```
+```
 curl localhost:8199/log
 ```
 
-### Remove the Docker Container
+## Remove the Docker Container
 
-#### Students Instructions for Cleaning Up
+### Students Instructions for Cleaning Up
 
 To perform a complete cleanup, you can add the `--volumes` option to the command, which will also remove all volumes created by Docker Compose.
 
 ```
 docker compose down --volumes
-
 ```
 
-#### Alternative: Keeping Volumes 
+### Alternative: Keeping Volumes
 
 Removing containers while keeping volumes intact
 
