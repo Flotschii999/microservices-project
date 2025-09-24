@@ -1,0 +1,13 @@
+florian@MacBook-Pro-von-Florian-2 ~ % docker container ls 
+CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS          PORTS                    NAMES
+92e06a31bb9a   microservices-project-service1   "docker-entrypoint.s…"   19 seconds ago   Up 18 seconds   0.0.0.0:8199->5000/tcp   microservices-project-service1-1
+1a373d9a3b0b   microservices-project-service2   "python service2.py"     19 seconds ago   Up 18 seconds                            microservices-project-service2-1
+d6d5a5d749b5   microservices-project-storage    "docker-entrypoint.s…"   19 seconds ago   Up 18 seconds                            microservices-project-storage-1
+
+florian@MacBook-Pro-von-Florian-2 ~ % docker network ls
+NETWORK ID     NAME                                    DRIVER    SCOPE
+2f7eb5ff6c1a   bridge                                  bridge    local
+986c122cd4e9   host                                    host      local
+9ad22944a2e1   microservices-project_hostNetwork       bridge    local
+ff26ae0829a4   microservices-project_internalNetwork   bridge    local
+a32c00b91ead   none                                    null      local
