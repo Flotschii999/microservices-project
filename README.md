@@ -70,7 +70,7 @@ cd microservices-project
 
 You can then build the container by executing the following command:
 ```
-docker-compose up –-build
+docker-compose up --build
 ```
 
 ### Accessing the Endpoints
