@@ -68,11 +68,17 @@ Before running the following commands, make sure to first navigate into the newl
 cd microservices-project
 ```
 
+You can then build the container by executing the following command:
+```
+docker-compose up –-build
+```
+
 ### Accessing the Endpoints
 
 ```
 curl localhost:8199/status
 ```
+
 ```
 curl localhost:8199/log
 ```
